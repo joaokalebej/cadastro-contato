@@ -18,4 +18,9 @@ public class ContatoController(IContatosService contatoService) : Controller
             return BadRequest(ex);
         }
     }
+
+    public PartialViewResult ContatosGrid()
+    {
+        return PartialView("_PartialGridContatos", contatoService.GetAllContatos());
+    }
 }
