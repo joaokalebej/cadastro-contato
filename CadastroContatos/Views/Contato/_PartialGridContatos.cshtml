@@ -1,0 +1,23 @@
+﻿@using NonFactors.Mvc.Grid
+
+@model List<ContatoModel>
+
+@(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.Nome).Titled("Nome");
+        columns.Add(model => model.Email).Titled("E-mail");
+        columns.Add(model => model.TelefoneComercial).Titled("Telefone Comercial");
+        columns.Add(model => model.TelefonePessoal).Titled("Telefone Pessoal"); 
+    })
+    .Empty("Sem dados")
+    .Id("my-ajax-grid")
+    .Pageable(pager =>
+    {
+        pager.PagesToDisplay = 2;
+        pager.RowsPerPage = 2;
+    })
+    .Filterable()
+    .Sortable()
+);
