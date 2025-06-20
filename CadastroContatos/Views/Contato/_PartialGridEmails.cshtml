@@ -1,0 +1,40 @@
+﻿@model CadastroContatos.ViewModel.ConsultaContatosViewModel
+
+@{
+    string[] emails = Model.Emails.Split(',');
+    string emailVisivel = emails[0];
+    string emailsModal = string.Join("<li>", emails.Skip(1).Select(e => $"<li>{e}</li>"));
+}
+
+@if (emails.Length == 1)
+{
+    @Model.Emails
+}
+else
+{
+    <div class="d-flex align-items-baseline justify-content-between">
+        <div class="text-nowrap">
+            @emailVisivel
+        </div>
+        <div class="ms-2" data-bs-toggle="modal" data-bs-target="#modalEmails_@Model.Id" style="cursor: pointer;"
+             title="Ver mais e-mails">
+            <i class="mdi mdi-eye-plus-outline fs-5 text-primary"></i>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEmails_@Model.Id" tabindex="-1" aria-labelledby="modalEmailsLabel_@Model.Id" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header py-2">
+                    <h5 class="modal-title fs-6" id="modalEmailsLabel_@Model.Id">Outros E-mails</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body p-2">
+                    <ul class="mb-0 small">
+                        @Html.Raw(emailsModal)
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}

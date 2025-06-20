@@ -1,12 +1,13 @@
 ﻿using CadastroContatos.Models;
+using CadastroContatos.ViewModel;
 
 namespace CadastroContatos.Repositories.Interfaces;
 
 public interface IContatoRepository
 {
-    List<ContatoModel> GetAll();
+    IQueryable<ConsultaContatosViewModel> GetConsulta();
     ContatoModel GetById(int id);
     void Add(ContatoModel contato);
     void Update(ContatoModel contato);
-    void Delete(int id);
+    void Delete(ContatoModel contato);
 }

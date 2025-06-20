@@ -1,6 +1,7 @@
 ﻿using CadastroContatos.Data;
 using CadastroContatos.Models;
 using CadastroContatos.Repositories.Interfaces;
+using CadastroContatos.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroContatos.Repositories;
@@ -17,6 +18,7 @@ public class ContatoRepository(DBContext dbContext) : IContatoRepository
     public ContatoModel GetById(int id)
     {
         return dbContext.Contatos
+            .Include(i => i.Emails)
             .AsNoTracking()
             .First(f => f.Id == id);
     }
@@ -39,14 +41,16 @@ public class ContatoRepository(DBContext dbContext) : IContatoRepository
         dbContext.SaveChanges();
     }
 
-    public void Delete(int id)
+    public void Delete(ContatoModel contato)
     {
-        ContatoModel contato = GetById(id);
-
-        if (contato is null)
-            throw new Exception("Contato não encontrado");
-        
         dbContext.Contatos.Remove(contato);
         dbContext.SaveChanges();
+    }
+
+    public IQueryable<ConsultaContatosViewModel> GetConsulta()
+    {
+        IQueryable<ConsultaContatosViewModel> query = dbContext.ConsultaContato.AsQueryable()
+            .OrderByDescending(o => o.DataInclusao);
+        return query;
     }
 }

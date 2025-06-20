@@ -2,13 +2,35 @@
     ViewData["Title"] = "Cadastro de Contatos";
 }
 
+<partial name="_PartialFiltroContato"/>
+
+<div class="d-md-flex mb-2 mt-2">
+    <div class="container mb-4">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-auto">
+                <a class="btn btn-primary" type="button" asp-action="CreateContato" asp-controller="Contato">
+                    Adicionar Contato
+                </a>
+            </div>
+
+            <div class="col-auto">
+                <div class="btn-group">
+                    <button onclick="pesquisarContato();" class="btn btn-success" type="button" title="Pesquisar">
+                        Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="grid-contatos"></div>
+
 @section Scripts
 {
     <script>
-        let surlGetHistorico = "@Url.Action("GetHistorico", "Clientes")";
+        let urlPesquisarContato = "@Url.Action("ContatosGrid", "Contato")";
+        let urlDeleteContato = "@Url.Action("DeleteContato", "Contato")";
     </script>
-    <script src="~/js/Website.js" asp-append-version="true"></script>
-    <script src="~/js/Website.tour.js" asp-append-version="true"></script>
-    <script src="~/js/TagHelpers/select.js" asp-append-version="true"></script>
-    <script src="~/js/TagHelpers/multiSelect.js" asp-append-version="true"></script>
+    <script src="~/js/contato.js" asp-append-version="true"></script>
 }
