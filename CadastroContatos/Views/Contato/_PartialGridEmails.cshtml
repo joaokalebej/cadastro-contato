@@ -3,7 +3,7 @@
 @{
     string[] emails = Model.Emails.Split(',');
     string emailVisivel = emails[0];
-    string emailsModal = string.Join("<li>", emails.Skip(1).Select(e => $"<li>{e}</li>"));
+    string emailsModal = string.Join("<br/>", emails);
 }
 
 @if (emails.Length == 1)
@@ -26,7 +26,7 @@ else
         <div class="modal-dialog modal-sm modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header py-2">
-                    <h5 class="modal-title fs-6" id="modalEmailsLabel_@Model.Id">Outros E-mails</h5>
+                    <h5 class="modal-title fs-6" id="modalEmailsLabel_@Model.Id">E-mails</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body p-2">

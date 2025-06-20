@@ -10,4 +10,5 @@ public interface IContatoRepository
     void Add(ContatoModel contato);
     void Update(ContatoModel contato);
     void Delete(ContatoModel contato);
+    void DeleteEmail(ContatoModel contato);
 }
