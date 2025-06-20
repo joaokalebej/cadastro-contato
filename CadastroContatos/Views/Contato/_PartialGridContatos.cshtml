@@ -1,18 +1,19 @@
 ﻿@using NonFactors.Mvc.Grid
 
-@model List<ContatoModel>
+@model List<CadastroContatos.ViewModel.ConsultaContatosViewModel>
 
 @(Html
     .Grid(Model)
     .Build(columns =>
     {
         columns.Add(model => model.Nome).Titled("Nome");
-        columns.Add(model => model.Email).Titled("E-mail");
         columns.Add(model => model.TelefoneComercial).Titled("Telefone Comercial");
-        columns.Add(model => model.TelefonePessoal).Titled("Telefone Pessoal"); 
+        columns.Add(model => model.TelefonePessoal).Titled("Telefone Pessoal");
+        columns.Add(model => Html.PartialAsync("_PartialGridEmails", model).Result).Encoded(false).Css("col-action ignore-to-export").Titled("E-mail");
+        columns.Add().RenderedAs(model => Html.PartialAsync("_PartialGridContatoAcoes", model).Result).Encoded(false).Css("col-action ignore-to-export");
     })
     .Empty("Sem dados")
-    .Id("my-ajax-grid")
+    .Id("grid-contato")
     .Pageable(pager =>
     {
         pager.PagesToDisplay = 2;
@@ -20,4 +21,4 @@
     })
     .Filterable()
     .Sortable()
-);
+)

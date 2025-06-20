@@ -9,10 +9,9 @@ public class ContatoModel
     [Key]
     public int Id { get; set; }
     public string Nome { get; set; }
-    public string Email { get; set; }
-    public int TelefoneComercial { get; set; }
-    public int TelefonePessoal { get; set; }
+    public string Empresa { get; set; }
+    public string TelefoneComercial { get; set; }
+    public string TelefonePessoal { get; set; }
     public DateTime DataInclusao { get; set; }
-    public DateTime DataAlteracao { get; set; }
-    public bool Excluir { get; set; }
+    public List<ContatoEmailModel> Emails { get; set; } = new();
 }

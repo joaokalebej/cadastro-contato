@@ -1,0 +1,48 @@
+﻿@model CadastroContatos.ViewModel.ContatoViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Contato";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Cadastrar Contato</h2>
+
+    <form asp-action="CreateContato" method="post">
+        <div class="mb-3">
+            <label asp-for="Nome" class="form-label"></label>
+            <input asp-for="Nome" class="form-control" required/>
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Empresa" class="form-label"></label>
+            <input asp-for="Empresa" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">E-mails</label>
+            <div id="emailContainer">
+                <div class="input-group mb-2">
+                    <input type="email" name="Emails" class="form-control" placeholder="nome@8quali.com"/>
+                </div>
+            </div>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="addEmail()">+ Adicionar e-mail
+            </button>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label asp-for="TelefonePessoal" class="form-label"></label>
+                <input asp-for="TelefonePessoal" class="form-control" placeholder="(  ) ____-____"/>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="TelefoneComercial" class="form-label"></label>
+                <input asp-for="TelefoneComercial" class="form-control" placeholder="(  ) ____-____"/>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/contato.js" asp-append-version="true"></script>
+}

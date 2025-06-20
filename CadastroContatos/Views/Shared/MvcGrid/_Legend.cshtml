@@ -1,0 +1,23 @@
+﻿@model NonFactors.Mvc.Grid.IGrid
+@{
+    int totalPages = Model.Pager?.TotalPages ?? 1;
+    int currentPage = Model.Pager?.CurrentPage ?? 1;
+    int rowsPerPage = Model.Pager?.RowsPerPage ?? 1;
+    int totalRows = Model.Pager?.TotalRows ?? Model?.Rows?.ToList()?.Count ?? 0;
+    bool lastPage = currentPage == totalPages;
+}
+@if (Model?.Pager != null)
+{
+    if (totalPages > 1)
+    {
+        <small>
+            Exibindo @(lastPage ? totalRows : rowsPerPage * currentPage) de @totalRows registro(s)
+        </small>
+    }
+    else
+    {
+        <small>
+            Exibindo @totalRows de @totalRows registro(s)
+        </small>
+    }
+}

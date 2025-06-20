@@ -3,6 +3,7 @@ using System;
 using CadastroContatos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CadastroContatos.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20250619202206_addEmpresa")]
+    partial class addEmpresa
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,6 +40,9 @@ namespace CadastroContatos.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("Excluido")
+                        .HasColumnType("boolean");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ContatoId");
@@ -52,12 +58,18 @@ namespace CadastroContatos.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Empresa")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("Excluido")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -74,35 +86,6 @@ namespace CadastroContatos.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("contatos");
-                });
-
-            modelBuilder.Entity("CadastroContatos.ViewModel.ConsultaContatosViewModel", b =>
-                {
-                    b.Property<DateTime>("DataInclusao")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Empresa")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TelefoneComercial")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("TelefonePessoal")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.ToTable((string)null);
-
-                    b.ToView("v_consultacontatos", (string)null);
                 });
 
             modelBuilder.Entity("CadastroContatos.Models.ContatoEmailModel", b =>
