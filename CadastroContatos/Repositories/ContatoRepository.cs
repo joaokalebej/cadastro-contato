@@ -34,6 +34,8 @@ public class ContatoRepository(DBContext dbContext) : IContatoRepository
 
     public void Update(ContatoModel contato)
     {
+        DeleteEmail(contato);
+        
         if (contato is null)
             throw new Exception("Contato não foi enviado com sucesso");
 
@@ -45,6 +47,12 @@ public class ContatoRepository(DBContext dbContext) : IContatoRepository
     {
         dbContext.Contatos.Remove(contato);
         dbContext.SaveChanges();
+    }
+    
+    public void DeleteEmail(ContatoModel contato)
+    {
+        dbContext.ContatoEmail.Where(w => w.ContatoId == contato.Id)
+            .ExecuteDelete();
     }
 
     public IQueryable<ConsultaContatosViewModel> GetConsulta()
