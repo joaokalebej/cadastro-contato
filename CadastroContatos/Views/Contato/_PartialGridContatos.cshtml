@@ -7,6 +7,7 @@
     .Build(columns =>
     {
         columns.Add(model => model.Nome).Titled("Nome");
+        columns.Add(model => model.Empresa).Titled("Empresa");
         columns.Add(model => model.TelefoneComercial).Titled("Telefone Comercial");
         columns.Add(model => model.TelefonePessoal).Titled("Telefone Pessoal");
         columns.Add(model => Html.PartialAsync("_PartialGridEmails", model).Result).Encoded(false).Css("col-action ignore-to-export").Titled("E-mail");
@@ -16,8 +17,11 @@
     .Id("grid-contato")
     .Pageable(pager =>
     {
-        pager.PagesToDisplay = 2;
-        pager.RowsPerPage = 2;
+        pager.PageSizes = new Dictionary<int, string> { { 0, "Todos" }, { 50, "50" }, { 100, "100" }, { 200, "200" }, { 500, "500" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 5;
+        pager.CurrentPage = 1;
+        pager.RowsPerPage = 10;
     })
     .Filterable()
     .Sortable()
