@@ -16,16 +16,19 @@ public class ContatosService(IContatoRepository contatoRepository) : IContatosSe
             IQueryable<ConsultaContatosViewModel> query = contatoRepository.GetConsulta();
 
             if (!string.IsNullOrEmpty(filtro.Nome))
-                query = query.Where(w => w.Nome.ToLower() == filtro.Nome.ToLower());
+                query = query.Where(w => w.Nome.Contains(filtro.Nome));
             
             if (!string.IsNullOrEmpty(filtro.Empresa))
-                query = query.Where(w => w.Empresa.ToLower() == filtro.Nome.ToLower());
+                query = query.Where(w => w.Empresa.Contains(filtro.Empresa));
 
             if (!string.IsNullOrEmpty(filtro.TelefoneComercial))
-                query = query.Where(w => w.TelefoneComercial.ToLower() == filtro.TelefoneComercial.ToLower());
+                query = query.Where(w => w.TelefoneComercial.Contains(filtro.TelefoneComercial));
             
             if (!string.IsNullOrEmpty(filtro.TelefonePessoal))
-                query = query.Where(w => w.TelefonePessoal.ToLower() == filtro.TelefonePessoal.ToLower());
+                query = query.Where(w => w.TelefonePessoal.Contains(filtro.TelefonePessoal));
+            
+            if (!string.IsNullOrEmpty(filtro.Email))
+                query = query.Where(w => w.Emails.Contains(filtro.Email));
 
             dados = query.ToList();
             
